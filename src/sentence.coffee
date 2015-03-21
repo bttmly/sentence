@@ -44,8 +44,7 @@ be = to = (x) ->
   if x is ok then return is_ok
   if x is not_ok then return is_not_ok
   if x is exist then return does_exist
-  if x is thro then return should_throw
-  if x is to then return x
+  if x is error then return should_throw
   x
 
 n0t = nt = nnot = nott = (x) -> 
@@ -70,7 +69,7 @@ have = (p) ->
 
 a = an = (x) -> (y) -> Object(y) instanceof x
 
-sentence = module.exports = {error, a, an, have, match, length, contain, include, negate, n0t, nt, nnot, nott, to, be, than, less, lt, less_than, less_or_equal, lte, greater, gt, greater_than, greater_or_equal, gte, expect, equal, not_equal}
+sentence = module.exports = {exist, empty, ok, not_ok, error, a, an, have, match, length, contain, include, negate, n0t, nt, nnot, nott, to, be, than, less, lt, less_than, less_or_equal, lte, greater, gt, greater_than, greater_or_equal, gte, expect, equal, not_equal}
 
 Object.defineProperty sentence, "globals", value: ->
   Object.keys(sentence).forEach (k) -> global[k] = module.exports[k]

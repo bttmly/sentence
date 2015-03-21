@@ -6,6 +6,10 @@ describe "sentence", ->
     expect(1) to equal 1
     expect(-> expect(2) to equal 1) to error
 
+  xit "be", ->
+    expect(1) to be 1
+    expect(-> expect(2) to be 1) to error
+
   it "not_equal", ->
     expect(1) to not_equal 2
     expect(-> expect(1) to_not equal 1) to error
@@ -24,7 +28,11 @@ describe "sentence", ->
   
   it "contain/include", ->
     expect("abcde") to include "bcd"
-    expect(-> expect("wxyz") to include "bcd") to error
+    expect(-> expect("abcde") to include "xyz") to error
+    
+    expect([1, 2, 3]) to include 2
+    expect(-> expect([1, 2, 3]) to include 4) to error
+    
     expect include to equal contain
 
   it "length", ->
@@ -43,4 +51,26 @@ describe "sentence", ->
     o = prop: "val"
     expect(o) to have("prop") "val"
     expect(-> expect(o) to have("prop") "not_val") to error
+
+  it "error", ->
+    expect(-> expect(1) to equal 2) to error
+
+  it "ok", ->
+    expect(true) to be ok
+    expect(-> expect(false) to be ok) to error
+
+  it "not_ok", ->
+    expect(false) to be not_ok
+    expect(-> expect(true) to be not_ok) to error
+
+  it "exist", ->
+    expect(-> expect(null) to exist) to error
+    expect(-> expect(undefined) to exist) to error
+    expect(1) to exist
+
+  it "empty", ->
+    expect([]) to be empty
+    expect({}) to be empty
+    expect(-> expect([1]) to be empty) to error
+    expect(-> expect(a: "b") to be empty) to error
 
