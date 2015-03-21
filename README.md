@@ -24,69 +24,69 @@ In many cases CoffeeScript's terse syntax is especially great for writing unit t
 
 Admittedly, I've focused on keeping the code itself as pretty as possible. A number of features are infeasible with the current approach.
 
-#### equal
+#### `equal`
 ```
 expect(1) to equal 1
 ```
 Assert that two values are equal.
 
-#### greater
+#### `greater`
 ```
 expect(2) to be greater than 1
 ```
 Assert that a value is greater than another value.
 
-#### less
+#### `less`
 ```
 expect(1) to be less than 2
 ```
 Assert that a value is less than another value
 
-#### contain
+#### `contain`
 ```
 expect("hello there") to contain "hello"
 ```
 Assert that one value contains another value (using `indexOf`). Supports strings and arrays.
 
-#### have
+#### `have`
 ```
-expect({name: "Nick"}) to have("name") "Nick"
+expect(name: "Nick") to have("name") "Nick"
 ```
 Assert that an object has a property equal to a value.
 
-#### match
+#### `match`
 ```
 expect("hello there") to match /hello/
 ```
 Assert that a string satisfies a regular expression.
 
-#### an
+#### `an`
 ```
 expect([]) to be an Array
 ```
 Assert that an object is an instance of a constructor
 
-#### exist
+#### `exist`
 ```
 expect(0) to exist
 ```
 Assert that a value is not `null` or `undefined`
 
 
-#### empty
+#### `empty`
 ```
 expect({}) to be empty
 ```
 
 Assert that an object has no own enumerable keys, or if an array that it's length is zero.
 
-#### ok
+#### `ok`
 ```
 expect(1) to be ok
 ```
 Assert that a value is truthy
 
-#### error
+#### `error`
 ```
 expect(-> throw new Error) to error
 ```
