@@ -2,6 +2,7 @@ exist = {}
 empty = {}
 ok = truthy = {}
 not_ok = falsy = {}
+error = thrw = thro = throww = {}
 
 is_empty = (x) ->
   if Array.isArray(x) 
@@ -9,14 +10,13 @@ is_empty = (x) ->
   else
     Object.keys(x).length is 0
 
-guard = (type) -> (fn) -> (x) ->
-  if a(type)(x) then fn(x) else throw new TypeError()
-  
-
 bool = (x) -> !!x
 is_ok = (x) -> bool x
 is_not_ok = (x) -> not x
 does_exist = (x) -> x?
+should_throw = (f) -> try do f catch e; e?
+  
+
 
 expect = (x) -> (y) -> 
   unless typeof y is "function"
@@ -47,6 +47,7 @@ be = to = (x) ->
   if x is ok then return is_ok
   if x is not_ok then return is_not_ok
   if x is exist then return does_exist
+  if x is thro then return should_throw
   if x is to then return x
   x
 
@@ -55,6 +56,7 @@ n0t = nt = nnot = nott = (x) ->
   if x is ok then return negate is_ok
   if x is not_ok then return negate is_not_ok
   if x is exist then return negate does_exist
+  if x is error then return negate should_throw
   (y) -> !x(y)
 
 negate = (f) -> (x) -> not f x
@@ -71,9 +73,10 @@ have = (p) ->
 
 a = an = (x) -> (y) -> Object(y) instanceof x
 
-module.exports = {a, an, have, match, length, contain, include, negate, n0t, nt, nnot, nott, to, be, than, less, less_than, less_or_equal, greater, greater_than, greater_or_equal, expect, equal, not_equal}
+sentence = module.exports = {error, a, an, have, match, length, contain, include, negate, n0t, nt, nnot, nott, to, be, than, less, less_than, less_or_equal, greater, greater_than, greater_or_equal, expect, equal, not_equal}
 
-Object.defineProperty module.exports, "globals", value: ->
-  Object.keys(module.exports).forEach (k) -> global[k] = module.exports[k]
+Object.defineProperty sentence, "globals", value: ->
+  Object.keys(sentence).forEach (k) -> global[k] = module.exports[k]
+  sentence
 
 
