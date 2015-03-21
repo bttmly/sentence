@@ -20,12 +20,9 @@ should_throw = (f) -> try do f catch e; e?
 
 expect = (x) -> (y) -> 
   unless typeof y is "function"
-    console.log typeof y
-    console.log y
     throw new Error "Pass a function"
 
   unless y(x)
-    console.log x, y
     throw new Error "Expectation failed."
 
 than = (x) -> x
@@ -73,7 +70,7 @@ have = (p) ->
 
 a = an = (x) -> (y) -> Object(y) instanceof x
 
-sentence = module.exports = {error, a, an, have, match, length, contain, include, negate, n0t, nt, nnot, nott, to, be, than, less, less_than, less_or_equal, greater, greater_than, greater_or_equal, expect, equal, not_equal}
+sentence = module.exports = {error, a, an, have, match, length, contain, include, negate, n0t, nt, nnot, nott, to, be, than, less, lt, less_than, less_or_equal, lte, greater, gt, greater_than, greater_or_equal, gte, expect, equal, not_equal}
 
 Object.defineProperty sentence, "globals", value: ->
   Object.keys(sentence).forEach (k) -> global[k] = module.exports[k]
