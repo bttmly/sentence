@@ -81,7 +81,26 @@ describe "sentence", ->
     expect("") to be a String
     expect(true) to be a Boolean
     expect(20) to be a Number
-    expect(new RegExp()) to be a RegExp
+    expect(/x/) to be a RegExp
     class Thing and expect(new Thing()) to be a Thing
     
+  it "nt", ->
+    describe "nt have", ->
+      expect([1]) to nt have length 0
+      expect(-> expect([]) to nt have length 0) to error
+
+    describe "nt include", ->
+      expect("abc") to nt include "z"
+      expect(-> expect("abc") to nt include "a") to error
+
+    describe "nt match", ->
+      expect("hello world") to nt match /goodbye/
+      expect(-> expect("hello world") to nt match /hello/) to error
+
+    describe "nt a", ->
+      expect({}) to nt be an Array
+      expect(-> expect([]) to nt be an Array) to error
+
+    
+
 
