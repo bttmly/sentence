@@ -74,3 +74,14 @@ describe "sentence", ->
     expect(-> expect([1]) to be empty) to error
     expect(-> expect(a: "b") to be empty) to error
 
+  it "a/an", ->
+    expect([]) to be an Array
+    expect([]) to be an Object
+    expect(->) to be a Function
+    expect("") to be a String
+    expect(true) to be a Boolean
+    expect(20) to be a Number
+    expect(new RegExp()) to be a RegExp
+    class Thing and expect(new Thing()) to be a Thing
+    
+

@@ -2,13 +2,19 @@ exist = {}
 empty = {}
 ok = truthy = {}
 not_ok = falsy = {}
-error = thrw = thro = throww = {}
+error = {}
 
-is_empty = (x) ->
-  if Array.isArray(x) 
-    x.length is 0 
-  else
-    Object.keys(x).length is 0
+error = (x) -> (y) ->
+  # if typeof x is "function"
+  #   y instanceof x
+
+  # if typeof x is "string"
+  #   y.toString().indexOf x isnt -1
+
+  # if x instanceof RegExp
+  #   x.test y.toString()
+
+is_empty = require "lodash.isempty"
 
 bool = (x) -> !!x
 is_ok = (x) -> bool x
