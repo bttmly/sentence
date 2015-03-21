@@ -1,0 +1,24 @@
+{
+  "name": "sentence",
+  "version": "1.0.0",
+  "description": "assertions as sentences",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nickb1080/sentence.git"
+  },
+  "keywords": [
+    "assertion",
+    "unit",
+    "test"
+  ],
+  "author": "Nick Bottomley (github.com/nickb1080)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nickb1080/sentence/issues"
+  },
+  "homepage": "https://github.com/nickb1080/sentence"
+}
