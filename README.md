@@ -91,3 +91,26 @@ Assert that a value is truthy
 expect(-> throw new Error) to error
 ```
 Assert that a function throws an error when called
+
+#### `length`
+```coffeescript
+expect([1,2,3]) to have length 3
+```
+Special function for "has" in the common case of checking an object's length
+
+
+#### `nt` ('not' is a reserved word in CoffeeScript)
+```coffeescript
+# these all pass
+expect(false) to nt be ok
+expect(null) to nt exist
+expect([1]) to nt be empty
+expect({}) to nt be an Array
+expect([1]) to nt have length 2
+expect([]) to nt contain 1
+expect(->) to nt error
+expect("a") to nt match /b/
+expect(x: "y") to nt have("x") "z"
+```
+
+Reverse an assertion chain
