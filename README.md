@@ -1,4 +1,4 @@
-# sentence
+# sentence [![Build Status](https://travis-ci.org/nickb1080/sentence.svg?branch=master)](https://travis-ci.org/nickb1080/sentence)
 
 Beautiful assertions for CoffeeScript. See the test file for examples.
 
