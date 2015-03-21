@@ -14,8 +14,7 @@ should_throw = (f) -> try do f catch e; e?
 expect = (x) -> (y) -> 
   unless typeof y is "function"
     throw new Error "Pass a function"
-
-  unless y(x)
+  unless y x
     throw new Error "Expectation failed."
 
 than = (x) -> x
@@ -46,7 +45,7 @@ nt = (f) ->
   if f is not_ok then return negate is_not_ok
   if f is exist then return negate does_exist
   if f is error then return negate should_throw
-  negate(f)
+  negate f
 
 negate = (f) -> (x) -> not f x
 
@@ -65,7 +64,7 @@ a = an = (x) -> (y) -> Object(y) instanceof x
 sentence = module.exports = {exist, empty, ok, not_ok, error, a, an, have, match, length, contain, include, negate, nt, to, be, than, less, lt, less_than, less_or_equal, lte, greater, gt, greater_than, greater_or_equal, gte, expect, equal, not_equal}
 
 Object.defineProperty sentence, "globals", value: ->
-  Object.keys(sentence).forEach (k) -> global[k] = module.exports[k]
+  Object.keys(sentence).forEach (k) -> global[k] = sentence[k]
   sentence
 
 
