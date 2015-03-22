@@ -1,11 +1,10 @@
-exist = {}
-empty = {}
-ok = truthy = {}
-error = {}
+exist = do Object
+empty = do Object
+error = do Object
+ok = truthy = do Object
 
 is_empty = require "lodash.isempty"
-bool = (x) -> !!x
-is_ok = (x) -> bool x
+is_ok = (x) -> !!x
 does_exist = (x) -> x?
 should_throw = (f) -> try do f catch e; e?
 
