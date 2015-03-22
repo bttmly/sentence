@@ -29,20 +29,6 @@ gte = greater_or_equal = (y) -> (x) -> x >= y
 
 lte = less_or_equal = (y) -> (x) -> x <= y
 
-be = to = (x) ->
-  if x is empty then return is_empty
-  if x is ok then return is_ok
-  if x is exist then return does_exist
-  if x is error then return should_throw
-  x
-
-nt = (f) ->
-  if f is empty then return negate is_empty
-  if f is ok then return negate is_ok
-  if f is exist then return negate does_exist
-  if f is error then return negate should_throw
-  negate f
-
 negate = (f) -> (x) -> not f x
 
 contain = include = (x) -> (y) -> y.indexOf(x) isnt -1
@@ -58,6 +44,20 @@ have = (p) ->
 a = an = (x) -> (y) ->
   if x is Object then return y instanceof x
   Object(y) instanceof x
+
+be = to = (x) ->
+  if x is empty then return is_empty
+  if x is ok then return is_ok
+  if x is exist then return does_exist
+  if x is error then return should_throw
+  x
+
+nt = (f) ->
+  if f is empty then return negate is_empty
+  if f is ok then return negate is_ok
+  if f is exist then return negate does_exist
+  if f is error then return negate should_throw
+  negate f
 
 sentence = module.exports = {exist, empty, ok, error, a, an, have, match, length, contain, include, negate, nt, to, be, than, less, lt, less_than, less_or_equal, lte, greater, gt, greater_than, greater_or_equal, gte, expect, equal, not_equal}
 
