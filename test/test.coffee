@@ -25,14 +25,14 @@ describe "sentence", ->
     expect(-> expect(2) to be less than 1) to error
     expect(less) to equal lt
     expect(less) to equal less_than
-  
+
   it "contain/include", ->
     expect("abcde") to include "bcd"
     expect(-> expect("abcde") to include "xyz") to error
-    
+
     expect([1, 2, 3]) to include 2
     expect(-> expect([1, 2, 3]) to include 4) to error
-    
+
     expect include to equal contain
 
   it "length", ->
@@ -82,8 +82,9 @@ describe "sentence", ->
     expect(true) to be a Boolean
     expect(20) to be a Number
     expect(/x/) to be a RegExp
+    expect(-> expect("") to be an Object) to error
     class Thing and expect(new Thing()) to be a Thing
-    
+
   it "nt", ->
     describe "nt have", ->
       expect([1]) to nt have length 0
@@ -101,6 +102,6 @@ describe "sentence", ->
       expect({}) to nt be an Array
       expect(-> expect([]) to nt be an Array) to error
 
-    
+
 
 

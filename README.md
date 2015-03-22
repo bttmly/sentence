@@ -60,9 +60,11 @@ expect("hello there") to match /hello/
 ```
 Assert that a string satisfies a regular expression.
 
-#### `an`
+#### `an` `a`
 ```coffeescript
 expect([]) to be an Array
+expect("") to be a String
+expect(true) to be an Object # fails
 ```
 Assert that an object is an instance of a constructor
 

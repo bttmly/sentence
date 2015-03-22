@@ -11,7 +11,7 @@ is_not_ok = (x) -> not x
 does_exist = (x) -> x?
 should_throw = (f) -> try do f catch e; e?
 
-expect = (x) -> (y) -> 
+expect = (x) -> (y) ->
   unless typeof y is "function"
     throw new Error "Pass a function"
   unless y x
@@ -39,7 +39,7 @@ be = to = (x) ->
   if x is error then return should_throw
   x
 
-nt = (f) -> 
+nt = (f) ->
   if f is empty then return negate is_empty
   if f is ok then return negate is_ok
   if f is not_ok then return negate is_not_ok
@@ -59,7 +59,9 @@ have = (p) ->
   return p if typeof p is "function"
   (x) -> (y) -> y[p] is x
 
-a = an = (x) -> (y) -> Object(y) instanceof x
+a = an = (x) -> (y) ->
+  if x is Object then return y instanceof x
+  Object(y) instanceof x
 
 sentence = module.exports = {exist, empty, ok, not_ok, error, a, an, have, match, length, contain, include, negate, nt, to, be, than, less, lt, less_than, less_or_equal, lte, greater, gt, greater_than, greater_or_equal, gte, expect, equal, not_equal}
 
