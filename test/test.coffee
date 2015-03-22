@@ -59,10 +59,6 @@ describe "sentence", ->
     expect(true) to be ok
     expect(-> expect(false) to be ok) to error
 
-  it "not_ok", ->
-    expect(false) to be not_ok
-    expect(-> expect(true) to be not_ok) to error
-
   it "exist", ->
     expect(-> expect(null) to exist) to error
     expect(-> expect(undefined) to exist) to error
