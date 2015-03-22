@@ -66,7 +66,7 @@ expect([]) to be an Array
 expect("") to be a String
 expect(true) to be an Object # fails
 ```
-Assert that an object is an instance of a constructor
+Assert that an object is an instance of a constructor. Doing `expect(x) to nt be an Object` tests if `x` is a primitive value (i.e. string, number, boolean, symbol)
 
 #### `exist`
 ```coffeescript
