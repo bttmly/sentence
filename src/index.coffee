@@ -1,7 +1,7 @@
-exist = do Object
-empty = do Object
-error = do Object
-ok = truthy = do Object
+exist = {}
+empty = {}
+error = {}
+ok = truthy = {}
 
 is_empty = require "lodash.isempty"
 is_ok = (x) -> !!x

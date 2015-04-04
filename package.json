@@ -4,7 +4,8 @@
   "description": "assertions as sentences",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script/register ./test/*.coffee -R spec"
+    "test": "mocha --compilers coffee:coffee-script/register ./test/*.coffee -R spec",
+    "build": "coffee --bare --output lib --compile src"
   },
   "repository": {
     "type": "git",
