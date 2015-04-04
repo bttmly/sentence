@@ -1,4 +1,4 @@
-s = require("../src/sentence").globals()
+s = require("../src").globals()
 
 describe "sentence", ->
 
