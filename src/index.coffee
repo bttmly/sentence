@@ -1,3 +1,5 @@
+_deep_equal = require "deep-equal"
+
 exist = {}
 empty = {}
 error = {}
@@ -19,6 +21,8 @@ than = (x) -> x
 eq = equal = (y) -> (x) -> x is y
 
 neq = not_equal = (y) -> (x) -> x isnt y
+
+eql = deep_equal = (a) -> (b) -> _deep_equal a, b, strict: true
 
 gt = greater = greater_than = (y) -> (x) -> x > y
 
@@ -58,10 +62,8 @@ nt = (f) ->
   if f is error then return negate should_throw
   negate f
 
-sentence = module.exports = {exist, empty, ok, error, a, an, have, match, length, contain, include, negate, nt, to, be, than, less, lt, less_than, less_or_equal, lte, greater, gt, greater_than, greater_or_equal, gte, expect, equal, not_equal}
+sentence = module.exports = {exist, empty, ok, error, a, an, have, match, length, contain, include, negate, nt, to, be, than, less, lt, less_than, less_or_equal, lte, greater, gt, greater_than, greater_or_equal, gte, expect, equal, not_equal, deep_equal, eql}
 
 Object.defineProperty sentence, "globals", value: ->
   Object.keys(sentence).forEach (k) -> global[k] = sentence[k]
   sentence
-
-

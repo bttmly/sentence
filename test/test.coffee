@@ -1,4 +1,4 @@
-s = require("../src").globals()
+do require("../src").globals
 
 describe "sentence", ->
 
@@ -10,9 +10,13 @@ describe "sentence", ->
     expect(1) to be 1
     expect(-> expect(2) to be 1) to error
 
+  it "eql/deep_equal", ->
+    expect([1, 2, 3]) to eql [1, 2, 3]
+    expect(-> expect([1, 2, 3]) to eql [2, 3, 4]) to error
+
   it "not_equal", ->
     expect(1) to not_equal 2
-    expect(-> expect(1) to_not equal 1) to error
+    expect(-> expect(1) to nt equal 1) to error
 
   it "greater", ->
     expect(2) to be greater than 1
