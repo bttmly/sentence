@@ -30,6 +30,12 @@ expect(1) to equal 1
 ```
 Assert that two values are equal.
 
+#### `eql`/`deep_equal`
+```coffeescript
+expect(a: "b", c: "d") to eql a: "b", c: "d"
+```
+Assert that two values are deeply equal. Uses the [`deep-equal`](https://github.com/substack/node-deep-equal) package, with the **strict** option **enabled**.
+
 #### `greater`
 ```coffeescript
 expect(2) to be greater than 1
