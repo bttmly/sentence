@@ -13,15 +13,17 @@ describe "sentence", ->
     expect(1) to equal 1
     expect(-> expect(2) to equal 1) to error
 
-  xit "be", ->
-    expect(1) to be 1
-    expect(-> expect(2) to be 1) to error
+    # the alias
+    expect(catch_it -> expect(2) to equal 1) to equal "Error: expected 2 to equal 1"
 
   it "eql/deep_equal", ->
     expect([1, 2, 3]) to eql [1, 2, 3]
     expect(-> expect([1, 2, 3]) to eql [2, 3, 4]) to error
 
-  it "not_equal", ->
+    # the alias
+    expect(catch_it -> expect([1, 2, 3]) to eql [2, 3, 4]) to equal "Error: expected 2,3,4 to deep equal 1,2,3"
+
+  xit "not_equal", ->
     expect(1) to not_equal 2
     expect(-> expect(1) to nt equal 1) to error
 
@@ -31,11 +33,17 @@ describe "sentence", ->
     expect(greater) to equal gt
     expect(greater) to equal greater_than
 
+    # the alias
+    expect(catch_it -> expect(1) to be greater than 2) to equal "Error: expected 1 to be greater than 2"
+
   it "less", ->
     expect(1) to be less than 2
     expect(-> expect(2) to be less than 1) to error
     expect(less) to equal lt
     expect(less) to equal less_than
+
+    # the alias
+    expect(catch_it -> expect(2) to be less than 1) to equal "Error: expected 2 to be less than 1"
 
   it "contain/include", ->
     expect("abcde") to include "bcd"
@@ -44,7 +52,12 @@ describe "sentence", ->
     expect([1, 2, 3]) to include 2
     expect(-> expect([1, 2, 3]) to include 4) to error
 
+    # the alias
     expect include to equal contain
+
+    # the label
+    expect(catch_it -> expect([1]) to include 2) to equal "Error: expected 1 to contain 2"
+
 
   it "length", ->
     o = length: 5
@@ -60,6 +73,9 @@ describe "sentence", ->
   it "match", ->
     expect("hello") to match /ell/
     expect(-> expect("heyo") to match /ell/) to error
+
+    # the label
+    expect(catch_it -> expect("heyo") to match /ell/) to equal "Error: expected heyo to match /ell/"
 
   it "have", ->
     o = prop: "val"
@@ -110,6 +126,7 @@ describe "sentence", ->
     expect(-> expect("") to be an Object) to error
     class Thing and expect(new Thing()) to be a Thing
 
+    # the label
     expect(catch_it -> expect("x") to be an Object) to equal "Error: expected x to be an instance of Object"
 
   it "nt", ->
@@ -117,17 +134,14 @@ describe "sentence", ->
       expect([1]) to nt have length 0
       expect(-> expect([]) to nt have length 0) to error
 
+      # the label
+      expect(catch_it -> expect([]) to nt have length 0) to equal "Error: did not expect  to have `length` 0"
+
     describe "nt include", ->
       expect("abc") to nt include "z"
       expect(-> expect("abc") to nt include "a") to error
 
-    describe "nt match", ->
-      expect("hello world") to nt match /goodbye/
-      expect(-> expect("hello world") to nt match /hello/) to error
-
-    describe "nt a", ->
-      expect({}) to nt be an Array
-      expect(-> expect([]) to nt be an Array) to error
+      expect(catch_it -> expect("abc") to nt include "a") to equal "Error: did not expect abc to contain a"
 
 
 

@@ -30,7 +30,7 @@ eq = equal = (y) -> (x) -> [x is y, "expected #{x} to equal #{y}"]
 
 neq = not_equal = (y) -> (x) -> [x isnt y, "expected #{x} to not equal #{y}"]
 
-eql = deep_equal = (a) -> (b) -> _deep_equal a, b, strict: true
+eql = deep_equal = (x) -> (y) -> [_deep_equal(x, y, strict: true), "expected #{x} to deep equal #{y}"]
 
 gt = greater = greater_than = (y) -> (x) -> [x > y, "expected #{x} to be greater than #{y}"]
 
