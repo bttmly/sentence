@@ -1,6 +1,12 @@
 _deep_equal = require "deep-equal"
 _empty = require "lodash.isempty"
 
+str = (v) ->
+  try
+    return JSON.stringify v
+  catch e
+    return String v
+
 exist = {}
 empty = {}
 error = {}
