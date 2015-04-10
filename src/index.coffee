@@ -1,52 +1,56 @@
 _deep_equal = require "deep-equal"
+_empty = require "lodash.isempty"
 
 exist = {}
 empty = {}
 error = {}
 ok = truthy = {}
 
-is_empty = require "lodash.isempty"
-is_ok = (x) -> !!x
-does_exist = (x) -> x?
-should_throw = (f) -> try do f catch e; e?
+is_empty = (x) -> [_empty(x), "expected #{x} to be empty"]
+is_ok = (x) -> [!!x, "expected #{x} to be truthy"]
+does_exist = (x) -> [x?, "expected #{x} to exist"]
+should_throw = (f) -> [(try do f catch e; e?), "expected function to throw an error"]
 
 expect = (x) -> (y) ->
   unless typeof y is "function"
     throw new Error "Pass a function"
-  unless y x
-    throw new Error "Expectation failed."
+  [okay, label] = y x
+  throw new Error(label) unless okay
+
 
 than = (x) -> x
 
-eq = equal = (y) -> (x) -> x is y
+eq = equal = (y) -> (x) -> [x is y, "expected #{x} to equal #{y}"]
 
-neq = not_equal = (y) -> (x) -> x isnt y
+neq = not_equal = (y) -> (x) -> [x isnt y, "expected #{x} to not equal #{y}"]
 
 eql = deep_equal = (a) -> (b) -> _deep_equal a, b, strict: true
 
-gt = greater = greater_than = (y) -> (x) -> x > y
+gt = greater = greater_than = (y) -> (x) -> [x > y, "expected #{x} to be greater than #{y}"]
 
-lt = less = less_than = (y) -> (x) -> x < y
+lt = less = less_than = (y) -> (x) -> [x < y, "expected #{x} to be less than #{y}"]
 
-gte = greater_or_equal = (y) -> (x) -> x >= y
+gte = greater_or_equal = (y) -> (x) -> [x >= y, "expected #{x} to be greater than or equal to #{y}"]
 
-lte = less_or_equal = (y) -> (x) -> x <= y
+lte = less_or_equal = (y) -> (x) -> [x <= y, "expected #{x} to be less than or equal to #{y}"]
 
-negate = (f) -> (x) -> not f x
+contain = include = (x) -> (y) -> [y.indexOf(x) isnt -1, "expected #{y} to contain #{x}"]
 
-contain = include = (x) -> (y) -> y.indexOf(x) isnt -1
+length = (x) -> (y) -> [y.length is x, "expected #{y} to have `length` #{x}"]
 
-length = (x) -> (y) -> y.length is x
+match = (x) -> (y) -> [x.test(y), "expected #{y} to match #{x}"]
 
-match = (x) -> (y) -> x.test y
+negate = (f) -> (x) ->
+  [okay, label] = f x
+  [not okay, label.replace("expected", "did not expect")]
 
 have = (p) ->
   return p if typeof p is "function"
-  (x) -> (y) -> y[p] is x
+  (x) -> (y) -> [y[p] is x, "expected property #{p} of #{y} to equal #{x}"]
 
 a = an = (x) -> (y) ->
-  if x is Object then return y instanceof x
-  Object(y) instanceof x
+  if x is Object then return [y instanceof x, "expected #{y} to be an instance of #{x.name}"]
+  [Object(y) instanceof x, "expected #{y} to be an instance of #{x.name}"]
 
 be = to = (x) ->
   if x is empty then return is_empty
