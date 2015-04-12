@@ -4,7 +4,7 @@ _empty = require "lodash.isempty"
 str = (v) ->
   try
     return JSON.stringify v
-  catch e
+  catch
     return String v
 
 exist = {}
@@ -12,9 +12,9 @@ empty = {}
 error = {}
 ok = truthy = {}
 
-is_empty = (x) -> [_empty(x), "expected #{x} to be empty"]
-is_ok = (x) -> [!!x, "expected #{x} to be truthy"]
-does_exist = (x) -> [x?, "expected #{x} to exist"]
+is_empty = (x) -> [_empty(x), "expected #{str x} to be empty"]
+is_ok = (x) -> [!!x, "expected #{str x} to be truthy"]
+does_exist = (x) -> [x?, "expected #{str x} to exist"]
 should_throw = (f) -> [(try do f catch e; e?), "expected function to throw an error"]
 
 expect = (x) -> (y) ->
@@ -26,25 +26,25 @@ expect = (x) -> (y) ->
 
 than = (x) -> x
 
-eq = equal = (y) -> (x) -> [x is y, "expected #{x} to equal #{y}"]
+eq = equal = (y) -> (x) -> [x is y, "expected #{str x} to equal #{str y}"]
 
-neq = not_equal = (y) -> (x) -> [x isnt y, "expected #{x} to not equal #{y}"]
+neq = not_equal = (y) -> (x) -> [x isnt y, "expected #{str x} to not equal #{str y}"]
 
-eql = deep_equal = (x) -> (y) -> [_deep_equal(x, y, strict: true), "expected #{x} to deep equal #{y}"]
+eql = deep_equal = (x) -> (y) -> [_deep_equal(x, y, strict: true), "expected #{str x} to deep equal #{str y}"]
 
-gt = greater = greater_than = (y) -> (x) -> [x > y, "expected #{x} to be greater than #{y}"]
+gt = greater = greater_than = (y) -> (x) -> [x > y, "expected #{str x} to be greater than #{str y}"]
 
-lt = less = less_than = (y) -> (x) -> [x < y, "expected #{x} to be less than #{y}"]
+lt = less = less_than = (y) -> (x) -> [x < y, "expected #{str x} to be less than #{str y}"]
 
-gte = greater_or_equal = (y) -> (x) -> [x >= y, "expected #{x} to be greater than or equal to #{y}"]
+gte = greater_or_equal = (y) -> (x) -> [x >= y, "expected #{str x} to be greater than or equal to #{str y}"]
 
-lte = less_or_equal = (y) -> (x) -> [x <= y, "expected #{x} to be less than or equal to #{y}"]
+lte = less_or_equal = (y) -> (x) -> [x <= y, "expected #{str x} to be less than or equal to #{str y}"]
 
-contain = include = (x) -> (y) -> [y.indexOf(x) isnt -1, "expected #{y} to contain #{x}"]
+contain = include = (x) -> (y) -> [y.indexOf(x) isnt -1, "expected #{str y} to contain #{str x}"]
 
-length = (x) -> (y) -> [y.length is x, "expected #{y} to have `length` #{x}"]
+length = (x) -> (y) -> [y.length is x, "expected #{str y} to have `length` #{str x}"]
 
-match = (x) -> (y) -> [x.test(y), "expected #{y} to match #{x}"]
+match = (x) -> (y) -> [x.test(y), "expected #{str y} to match #{str x}"]
 
 negate = (f) -> (x) ->
   [okay, label] = f x
@@ -52,11 +52,11 @@ negate = (f) -> (x) ->
 
 have = (p) ->
   return p if typeof p is "function"
-  (x) -> (y) -> [y[p] is x, "expected property #{p} of #{y} to equal #{x}"]
+  (x) -> (y) -> [y[p] is x, "expected property #{str p} of #{str y} to equal #{str x}"]
 
 a = an = (x) -> (y) ->
-  if x is Object then return [y instanceof x, "expected #{y} to be an instance of #{x.name}"]
-  [Object(y) instanceof x, "expected #{y} to be an instance of #{x.name}"]
+  if x is Object then return [y instanceof x, "expected #{str y} to be an instance of #{x.name}"]
+  [Object(y) instanceof x, "expected #{str y} to be an instance of #{x.name}"]
 
 be = to = (x) ->
   if x is empty then return is_empty
