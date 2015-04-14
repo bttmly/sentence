@@ -1,11 +1,19 @@
 _deep_equal = require "deep-equal"
 _empty = require "lodash.isempty"
 
+wassat = require "wassat"
+
 str = (v) ->
-  try
+  if wassat.isArray(v) or wassat.isObject(v)
     return JSON.stringify v
-  catch
-    return String v
+
+  if wassat.isFunction(v)
+    return "<#{v.name or "anonymous function"}>"
+
+  if wassat.isString(v)
+    return "\"#{v}\""
+
+  return String v
 
 exist = {}
 empty = {}
@@ -18,7 +26,7 @@ does_exist = (x) -> [x?, "expected #{str x} to exist"]
 should_throw = (f) -> [(try do f catch e; e?), "expected function to throw an error"]
 
 expect = (x) -> (y) ->
-  unless typeof y is "function"
+  unless wassat.isFunction y
     throw new Error "Pass a function"
   [okay, label] = y x
   throw new Error(label) unless okay
@@ -51,7 +59,7 @@ negate = (f) -> (x) ->
   [not okay, label.replace("expected", "did not expect")]
 
 have = (p) ->
-  return p if typeof p is "function"
+  return p if wassat.isFunction p
   (x) -> (y) -> [y[p] is x, "expected property #{str p} of #{str y} to equal #{str x}"]
 
 a = an = (x) -> (y) ->

@@ -5,7 +5,7 @@ catch_it = (fn) ->
     do fn
   catch e
     return String e
-  throw new Error "No exception thrown."
+  throw new Error "No error thrown."
 
 describe "sentence", ->
 
@@ -75,7 +75,7 @@ describe "sentence", ->
     expect(-> expect("heyo") to match /ell/) to error
 
     # the label
-    expect(catch_it -> expect("heyo") to match /ell/) to equal "Error: expected \"heyo\" to match {}"
+    expect(catch_it -> expect("heyo") to match /ell/) to equal "Error: expected \"heyo\" to match /ell/"
 
   it "have", ->
     o = prop: "val"
