@@ -67,18 +67,20 @@ a = an = (x) -> (y) ->
   [Object(y) instanceof x, "expected #{str y} to be an instance of #{x.name}"]
 
 be = to = (x) ->
-  if x is empty then return is_empty
-  if x is ok then return is_ok
-  if x is exist then return does_exist
-  if x is error then return should_throw
-  x
+  return switch x
+    when empty then is_empty
+    when ok then is_ok
+    when exist then does_exist
+    when error then should_throw
+    else x
 
 nt = (f) ->
-  if f is empty then return negate is_empty
-  if f is ok then return negate is_ok
-  if f is exist then return negate does_exist
-  if f is error then return negate should_throw
-  negate f
+  return switch f
+    when empty then negate is_empty
+    when ok then negate is_ok
+    when exist then negate does_exist
+    when error then negate should_throw
+    else negate f
 
 sentence = module.exports = {exist, empty, ok, error, a, an, have, match, length, contain, include, negate, nt, to, be, than, less, lt, less_than, less_or_equal, lte, greater, gt, greater_than, greater_or_equal, gte, expect, equal, not_equal, deep_equal, eql}
 
